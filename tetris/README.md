@@ -1,116 +1,116 @@
-# Tetris 游戏
+# Tetris Game
 
-一个经典的俄罗斯方块游戏，使用 Godot 4.6 引擎开发。
+A classic Tetris game developed using Godot 4.6 engine.
 
-## 游戏介绍
+## Game Introduction
 
-这是一个经典俄罗斯方块游戏的现代化实现，使用 Godot 4.6 引擎开发。游戏具有流畅的动画、多种控制方式、分数系统和保存功能。
+This is a modern implementation of the classic Tetris game, developed using Godot 4.6 engine. The game features smooth animations, multiple control methods, score system, and save functionality.
 
-## GitHub 仓库
+## GitHub Repository
 
-游戏源代码托管在 GitHub：[https://github.com/zml9167/tetris](https://github.com/zml9167/tetris)
+The game source code is hosted on GitHub: [https://github.com/zml9167/tetris](https://github.com/zml9167/tetris)
 
-## 在线游玩
+## Play Online
 
-点击这里开始游戏：[Tetris 游戏](https://zml9167.github.io/tetris/Tetris.html)
+Click here to start the game: [Tetris Game](https://zml9167.github.io/tetris/Tetris.html)
 
-## 玩法说明
+## How to Play
 
-### 游戏目标
-- 控制下落的方块，将它们排列成完整的水平线
-- 完成的水平线会被消除，获得分数
-- 防止方块堆积到屏幕顶部
-- 尽可能获得更高的分数
+### Game Objectives
+- Control falling blocks and arrange them into complete horizontal lines
+- Completed horizontal lines will be cleared, earning points
+- Prevent blocks from stacking to the top of the screen
+- Try to achieve the highest score possible
 
-### 控制方式
+### Controls
 
-**键盘控制：**
-- **左箭头 / A**：向左移动
-- **右箭头 / D**：向右移动
-- **下箭头 / S**：向下移动（软降）
-- **上箭头 / W / E**：顺时针旋转
-- **Q**：逆时针旋转
-- **Esc**：暂停游戏
+**Keyboard Controls:**
+- **Left Arrow / A**: Move left
+- **Right Arrow / D**: Move right
+- **Down Arrow / S**: Move down (soft drop)
+- **Up Arrow / W / E**: Rotate clockwise
+- **Q**: Rotate counterclockwise
+- **Esc**: Pause game
 
-**手柄控制：**
-- **方向键左/右**：向左/右移动
-- **方向键下**：向下移动
-- **A 按钮**：顺时针旋转
-- **B 按钮**：逆时针旋转
-- **Start 按钮**：暂停游戏
+**Gamepad Controls:**
+- **D-pad Left/Right**: Move left/right
+- **D-pad Down**: Move down
+- **A Button**: Rotate clockwise
+- **B Button**: Rotate counterclockwise
+- **Start Button**: Pause game
 
-### 游戏规则
-1. 方块从屏幕顶部下落
-2. 使用控制键移动和旋转方块
-3. 完成水平线可以消除并得分
-4. 随着等级提升，游戏速度会加快
-5. 方块堆积到屏幕顶部时游戏结束
-6. 旋转被阻止时会导致方块低于底部边界
-7. 按住下箭头可以快速下落
+### Game Rules
+1. Blocks fall from the top of the screen
+2. Use controls to move and rotate blocks
+3. Complete horizontal lines to clear them and earn points
+4. Game speed increases as you level up
+5. Game ends when blocks stack to the top of the screen
+6. Rotation is blocked when it would cause blocks to go below the bottom boundary
+7. Hold down arrow for fast drop
 
-### 游戏特色
-- 经典俄罗斯方块玩法
-- 键盘和手柄支持
-- 分数系统和等级进阶
-- 保存/加载功能
-- 暂停菜单
-- 游戏结束画面
-- 最高分记录
-- 放弃运行确认对话框
-- 改进的碰撞检测
-- 流畅的旋转机制
+### Game Features
+- Classic Tetris gameplay
+- Keyboard and gamepad support
+- Score system with level progression
+- Save/Load functionality
+- Pause menu
+- Game over screen
+- High score tracking
+- Abandon run confirmation dialog
+- Improved collision detection
+- Smooth rotation mechanics
 
-## 技术栈
+## Technology Stack
 
-- **游戏引擎**：Godot 4.6
-- **开发语言**：GDScript
-- **图形**：2D 图形
-- **部署**：WebAssembly (WASM)
+- **Game Engine**: Godot 4.6
+- **Development Language**: GDScript
+- **Graphics**: 2D Graphics
+- **Deployment**: WebAssembly (WASM)
 
-## 项目结构
+## Project Structure
 
 ```
 tetris/
-├── assets/          # 游戏资源
-│   └── block.png    # 方块精灵
-├── prefab/          # 方块预制件
+├── assets/          # Game assets
+│   └── block.png    # Block sprite
+├── prefab/          # Tetromino prefabs
 │   ├── prefab0.tres
 │   ├── prefab1.tres
 │   └── ...
-├── scene/           # 游戏场景
-│   ├── block/       # 方块组件
-│   ├── global/      # 全局游戏状态
-│   ├── main/        # 主游戏场景
-│   ├── pause_menu/  # 暂停菜单
-│   └── title/       # 标题画面
-├── script/          # 游戏脚本
-│   ├── controller.gd  # 方块控制器
-│   ├── prefab.gd      # 方块预制件
-│   └── save_data.gd   # 保存数据管理
-├── project.godot    # 项目配置
-└── README.md        # 说明文件
+├── scene/           # Game scenes
+│   ├── block/       # Block component
+│   ├── global/      # Global game state
+│   ├── main/        # Main game scene
+│   ├── pause_menu/  # Pause menu
+│   └── title/       # Title screen
+├── script/          # Game scripts
+│   ├── controller.gd  # Block controller
+│   ├── prefab.gd      # Tetromino prefab
+│   └── save_data.gd   # Save data management
+├── project.godot    # Project configuration
+└── README.md        # This file
 ```
 
-## 本地运行
+## Local Development
 
-1. 下载并安装 Godot 4.6
-2. 克隆仓库：
+1. Download and install Godot 4.6
+2. Clone the repository:
    ```bash
    git clone https://github.com/zml9167/tetris.git
    ```
-3. 在 Godot 中打开项目（选择 `project.godot` 文件）
-4. 点击播放按钮开始游戏
+3. Open the project in Godot (select the `project.godot` file)
+4. Click the play button to start the game
 
-## 保存和加载
+## Save and Load
 
-- 游戏会在暂停时自动保存进度
-- 可以从标题画面继续游戏
-- 可以从标题画面放弃当前运行（需要确认）
+- The game automatically saves your progress when you pause
+- You can continue your game from the title screen
+- You can abandon your current run from the title screen (with confirmation)
 
-## 贡献
+## Contributing
 
-欢迎提交 Pull Request 来改进这个项目！
+Pull Requests are welcome to improve this project!
 
-## 许可证
+## License
 
-本项目采用 MIT 许可证 - 详情请查看 LICENSE 文件。
+This project is licensed under the MIT License - see the LICENSE file for details.
