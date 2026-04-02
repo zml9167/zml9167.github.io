@@ -23,10 +23,38 @@
             width: 80%;
             max-width: 600px;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
+            margin: 0;
+        }
+        .language-switch {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #4CAF50;
+            background-color: white;
+            color: #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .lang-btn:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .lang-btn.active {
+            background-color: #4CAF50;
+            color: white;
         }
         .game-list {
             list-style: none;
@@ -61,27 +89,517 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
         }
         .game-link:hover {
             background-color: #45a049;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .modal-body {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .controls-list {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .controls-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .controls-list li {
+            margin: 8px 0;
+            color: #555;
+        }
+        
+        .rules-list {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .rules-list ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .rules-list li {
+            margin: 8px 0;
+            color: #555;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #da190b;
+            transform: translateY(-2px);
+        }
+        
+        .game-objectives {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .game-objectives ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .game-objectives li {
+            margin: 8px 0;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>游戏列表</h1>
+        <div class="header">
+            <h1 id="pageTitle">游戏列表</h1>
+            <div class="language-switch">
+                <button class="lang-btn active" onclick="switchLanguage('zh')">中文</button>
+                <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+            </div>
+        </div>
         <ul class="game-list">
             <li class="game-item">
-                <div class="game-title">Snake 游戏</div>
-                <div class="game-description">一个经典的贪吃蛇游戏，使用 Godot 引擎开发。</div>
-                <a href="snake/Snake.html" class="game-link" target="_blank">开始游戏</a>
+                <div class="game-title" id="snakeTitle">Snake 游戏</div>
+                <div class="game-description" id="snakeDesc">一个经典的贪吃蛇游戏，使用 Godot 引擎开发。</div>
+                <button class="game-link" onclick="showGameInfo('snake')" id="snakeBtn">开始游戏</button>
             </li>
             <li class="game-item">
-                <div class="game-title">Tetris 游戏</div>
-                <div class="game-description">一个经典的俄罗斯方块游戏，使用 Godot 引擎开发。</div>
-                <a href="tetris/Tetris.html" class="game-link" target="_blank">开始游戏</a>
+                <div class="game-title" id="tetrisTitle">Tetris 游戏</div>
+                <div class="game-description" id="tetrisDesc">一个经典的俄罗斯方块游戏，使用 Godot 引擎开发。</div>
+                <button class="game-link" onclick="showGameInfo('tetris')" id="tetrisBtn">开始游戏</button>
             </li>
         </ul>
     </div>
+    
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">游戏玩法</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()" id="cancelBtn">取消</button>
+                <button class="btn btn-primary" id="startGameBtn">确认开始</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentLang = 'zh';
+        
+        const i18n = {
+            zh: {
+                pageTitle: '游戏列表',
+                snakeTitle: 'Snake 游戏',
+                snakeDesc: '一个经典的贪吃蛇游戏，使用 Godot 引擎开发。',
+                tetrisTitle: 'Tetris 游戏',
+                tetrisDesc: '一个经典的俄罗斯方块游戏，使用 Godot 引擎开发。',
+                startGame: '开始游戏',
+                cancel: '取消',
+                confirmStart: '确认开始',
+                snake: {
+                    title: 'Snake 游戏玩法',
+                    content: `
+                        <div class="game-objectives">
+                            <h3 class="section-title">游戏目标</h3>
+                            <ul>
+                                <li>控制蛇移动，吃掉食物来增长身体</li>
+                                <li>避免撞到墙壁或自己的身体</li>
+                                <li>尽可能获得更高的分数</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">控制方式</h3>
+                        <div class="controls-list">
+                            <h4>键盘控制：</h4>
+                            <ul>
+                                <li><strong>方向键（↑ ↓ ← →）</strong>：控制蛇的移动方向</li>
+                                <li><strong>WASD 键</strong>：替代方向键控制移动</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">游戏规则</h3>
+                        <div class="rules-list">
+                            <ol>
+                                <li>蛇会自动向前移动</li>
+                                <li>吃到食物后，蛇的身体会增长，分数增加</li>
+                                <li>撞到墙壁或自己的身体会导致游戏结束</li>
+                                <li>随着分数增加，游戏速度会逐渐加快</li>
+                            </ol>
+                        </div>
+                        
+                        <h3 class="section-title">游戏特色</h3>
+                        <div class="controls-list">
+                            <ul>
+                                <li>流畅的动画效果</li>
+                                <li>响应式控制</li>
+                                <li>分数系统</li>
+                                <li>现代化界面设计</li>
+                                <li>渐进式难度增加</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                tetris: {
+                    title: 'Tetris 游戏玩法',
+                    content: `
+                        <div class="game-objectives">
+                            <h3 class="section-title">游戏目标</h3>
+                            <ul>
+                                <li>控制下落的方块，将它们排列成完整的水平线</li>
+                                <li>完成的水平线会被消除，获得分数</li>
+                                <li>防止方块堆积到屏幕顶部</li>
+                                <li>尽可能获得更高的分数</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">控制方式</h3>
+                        <div class="controls-list">
+                            <h4>键盘控制：</h4>
+                            <ul>
+                                <li><strong>左箭头 / A</strong>：向左移动</li>
+                                <li><strong>右箭头 / D</strong>：向右移动</li>
+                                <li><strong>下箭头 / S</strong>：向下移动（软降）</li>
+                                <li><strong>上箭头 / W / E</strong>：顺时针旋转</li>
+                                <li><strong>Q</strong>：逆时针旋转</li>
+                                <li><strong>Esc</strong>：暂停游戏</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="controls-list">
+                            <h4>手柄控制：</h4>
+                            <ul>
+                                <li><strong>方向键左/右</strong>：向左/右移动</li>
+                                <li><strong>方向键下</strong>：向下移动</li>
+                                <li><strong>A 按钮</strong>：顺时针旋转</li>
+                                <li><strong>B 按钮</strong>：逆时针旋转</li>
+                                <li><strong>Start 按钮</strong>：暂停游戏</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">游戏规则</h3>
+                        <div class="rules-list">
+                            <ol>
+                                <li>方块从屏幕顶部下落</li>
+                                <li>使用控制键移动和旋转方块</li>
+                                <li>完成水平线可以消除并得分</li>
+                                <li>随着等级提升，游戏速度会加快</li>
+                                <li>方块堆积到屏幕顶部时游戏结束</li>
+                                <li>按住下箭头可以快速下落</li>
+                            </ol>
+                        </div>
+                        
+                        <h3 class="section-title">游戏特色</h3>
+                        <div class="controls-list">
+                            <ul>
+                                <li>经典俄罗斯方块玩法</li>
+                                <li>键盘和手柄支持</li>
+                                <li>分数系统和等级进阶</li>
+                                <li>保存/加载功能</li>
+                                <li>暂停菜单</li>
+                                <li>最高分记录</li>
+                            </ul>
+                        </div>
+                    `
+                }
+            },
+            en: {
+                pageTitle: 'Game List',
+                snakeTitle: 'Snake Game',
+                snakeDesc: 'A classic Snake game developed using Godot engine.',
+                tetrisTitle: 'Tetris Game',
+                tetrisDesc: 'A classic Tetris game developed using Godot engine.',
+                startGame: 'Start Game',
+                cancel: 'Cancel',
+                confirmStart: 'Confirm',
+                snake: {
+                    title: 'Snake Game Instructions',
+                    content: `
+                        <div class="game-objectives">
+                            <h3 class="section-title">Game Objectives</h3>
+                            <ul>
+                                <li>Control the snake to move and eat food to grow</li>
+                                <li>Avoid hitting walls or your own body</li>
+                                <li>Achieve the highest score possible</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">Controls</h3>
+                        <div class="controls-list">
+                            <h4>Keyboard Controls:</h4>
+                            <ul>
+                                <li><strong>Arrow Keys (↑ ↓ ← →)</strong>: Control snake movement direction</li>
+                                <li><strong>WASD Keys</strong>: Alternative to arrow keys for movement</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">Game Rules</h3>
+                        <div class="rules-list">
+                            <ol>
+                                <li>The snake moves forward automatically</li>
+                                <li>When eating food, the snake grows and score increases</li>
+                                <li>Hitting walls or the snake's own body results in game over</li>
+                                <li>Game speed gradually increases as score increases</li>
+                            </ol>
+                        </div>
+                        
+                        <h3 class="section-title">Game Features</h3>
+                        <div class="controls-list">
+                            <ul>
+                                <li>Smooth animation effects</li>
+                                <li>Responsive controls</li>
+                                <li>Score system</li>
+                                <li>Modern interface design</li>
+                                <li>Progressive difficulty increase</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                tetris: {
+                    title: 'Tetris Game Instructions',
+                    content: `
+                        <div class="game-objectives">
+                            <h3 class="section-title">Game Objectives</h3>
+                            <ul>
+                                <li>Control falling blocks and arrange them into complete horizontal lines</li>
+                                <li>Completed horizontal lines will be cleared, earning points</li>
+                                <li>Prevent blocks from stacking to the top of the screen</li>
+                                <li>Achieve the highest score possible</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">Controls</h3>
+                        <div class="controls-list">
+                            <h4>Keyboard Controls:</h4>
+                            <ul>
+                                <li><strong>Left Arrow / A</strong>: Move left</li>
+                                <li><strong>Right Arrow / D</strong>: Move right</li>
+                                <li><strong>Down Arrow / S</strong>: Move down (soft drop)</li>
+                                <li><strong>Up Arrow / W / E</strong>: Rotate clockwise</li>
+                                <li><strong>Q</strong>: Rotate counterclockwise</li>
+                                <li><strong>Esc</strong>: Pause game</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="controls-list">
+                            <h4>Gamepad Controls:</h4>
+                            <ul>
+                                <li><strong>D-pad Left/Right</strong>: Move left/right</li>
+                                <li><strong>D-pad Down</strong>: Move down</li>
+                                <li><strong>A Button</strong>: Rotate clockwise</li>
+                                <li><strong>B Button</strong>: Rotate counterclockwise</li>
+                                <li><strong>Start Button</strong>: Pause game</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="section-title">Game Rules</h3>
+                        <div class="rules-list">
+                            <ol>
+                                <li>Blocks fall from the top of the screen</li>
+                                <li>Use controls to move and rotate blocks</li>
+                                <li>Complete horizontal lines to clear them and earn points</li>
+                                <li>Game speed increases as you level up</li>
+                                <li>Game ends when blocks stack to the top of the screen</li>
+                                <li>Hold down arrow for fast drop</li>
+                            </ol>
+                        </div>
+                        
+                        <h3 class="section-title">Game Features</h3>
+                        <div class="controls-list">
+                            <ul>
+                                <li>Classic Tetris gameplay</li>
+                                <li>Keyboard and gamepad support</li>
+                                <li>Score system with level progression</li>
+                                <li>Save/Load functionality</li>
+                                <li>Pause menu</li>
+                                <li>High score tracking</li>
+                            </ul>
+                        </div>
+                    `
+                }
+            }
+        };
+        
+        const gameInfo = {
+            snake: {
+                gameUrl: "snake/Snake.html"
+            },
+            tetris: {
+                gameUrl: "tetris/Tetris.html"
+            }
+        };
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.getElementById('pageTitle').textContent = i18n[lang].pageTitle;
+            document.getElementById('snakeTitle').textContent = i18n[lang].snakeTitle;
+            document.getElementById('snakeDesc').textContent = i18n[lang].snakeDesc;
+            document.getElementById('tetrisTitle').textContent = i18n[lang].tetrisTitle;
+            document.getElementById('tetrisDesc').textContent = i18n[lang].tetrisDesc;
+            document.getElementById('snakeBtn').textContent = i18n[lang].startGame;
+            document.getElementById('tetrisBtn').textContent = i18n[lang].startGame;
+            document.getElementById('cancelBtn').textContent = i18n[lang].cancel;
+            document.getElementById('startGameBtn').textContent = i18n[lang].confirmStart;
+            
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        }
+        
+        function showGameInfo(gameId) {
+            const game = gameInfo[gameId];
+            const gameText = i18n[currentLang][gameId];
+            
+            document.getElementById('modalTitle').textContent = gameText.title;
+            document.getElementById('modalBody').innerHTML = gameText.content;
+            document.getElementById('startGameBtn').onclick = function() {
+                window.open(game.gameUrl, '_blank');
+                closeModal();
+            };
+            document.getElementById('gameModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('gameModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('gameModal')) {
+                closeModal();
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
