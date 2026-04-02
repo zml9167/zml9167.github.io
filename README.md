@@ -8,6 +8,10 @@
 - **描述**：一个经典的贪吃蛇游戏，使用 Godot 引擎开发
 - **运行方式**：点击[Snake 游戏](https://zml9167.github.io/snake/Snake.html)开始游玩
 
+### Tetris 游戏
+- **描述**：一个经典的俄罗斯方块游戏，使用 Godot 引擎开发
+- **运行方式**：点击[Tetris 游戏](https://zml9167.github.io/tetris/Tetris.html)开始游玩
+
 ## 项目结构
 
 ```
